@@ -1,0 +1,14 @@
+{
+  "name": "game-shop-api",
+  "version": "1.0.0",
+  "description": "Game shop api written in nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aleksandar Krstic",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
