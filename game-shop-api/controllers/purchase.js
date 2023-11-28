@@ -75,10 +75,39 @@ export const getPurchase = async (req, res, next) => {
 };
 
 export const getPurchases = async (req, res, next) => {
+  const currentPage = +req.query.pageNum || 1;
+  const perPage = +req.query.perPage || 5;
+  const dateFrom = req.query.dateFrom;
+  const dateTo = req.query.dateTo;
+
   let productIds = [];
 
   try {
-    const purchases = await Purchase.find();
+    let filter = {};
+    if (dateFrom && dateTo) {
+      filter = {
+        createdAt: {
+          $gte: new Date(dateFrom),
+          $lt: new Date(dateTo),
+        },
+      };
+    } else if (dateFrom) {
+      filter = {
+        createdAt: {
+          $gte: new Date(dateFrom),
+        },
+      };
+    } else if (dateTo) {
+      filter = {
+        createdAt: {
+          $lt: new Date(dateTo),
+        },
+      };
+    }
+
+    const purchases = await Purchase.find(filter)
+      .skip((currentPage - 1) * perPage)
+      .limit(perPage);
 
     if (!purchases) {
       return res.status(404).json({ message: "Purchases not found!" });

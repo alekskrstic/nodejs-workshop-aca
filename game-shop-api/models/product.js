@@ -8,21 +8,28 @@ export class Product {
     this.price = price;
     this.quantity = quantity;
     this.categories = categories;
-    this._id = id ? new mongodb.ObjectId(id) : null;
+    this.productId = +id;
   }
 
   async save() {
     try {
       const db = getDb();
       let dbOp;
-      if (this._id) {
+      if (this.productId) {
         dbOp = await db.collection("products").updateOne(
-          { _id: this._id },
+          { productId: this.productId },
           {
             $set: this,
           }
         );
       } else {
+        const products = await db.collection("products").find().toArray();
+
+        const productIds = products.map((p) => p.productId);
+
+        this.productId =
+          productIds.length > 0 ? Math.max(...productIds) + 1 : 1;
+
         dbOp = await db.collection("products").insertOne(this);
       }
 
@@ -101,7 +108,7 @@ export class Product {
       const db = getDb();
 
       var match = {
-        _id: new mongodb.ObjectId(productId),
+        productId: +productId,
       };
 
       const product = await db
@@ -132,7 +139,7 @@ export class Product {
       const db = getDb();
       return await db
         .collection("products")
-        .deleteOne({ _id: new mongodb.ObjectId(productId) });
+        .deleteOne({ productId: +productId });
     } catch (err) {
       throw err;
     }

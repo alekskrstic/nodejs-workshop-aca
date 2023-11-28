@@ -16,8 +16,8 @@ categoryRouter.post(
   [
     body("name")
       .trim()
-      .isLength({ min: 5 })
-      .withMessage("Name must be at least 5 chars long."),
+      .isLength({ min: 3 })
+      .withMessage("Name must be at least 3 chars long."),
     body("description")
       .trim()
       .isLength({ max: 30 })
@@ -33,8 +33,8 @@ categoryRouter.put(
   [
     body("name")
       .trim()
-      .isLength({ min: 5 })
-      .withMessage("Name must be at least 5 chars long."),
+      .isLength({ min: 3 })
+      .withMessage("Name must be at least 3 chars long."),
     body("description")
       .trim()
       .isLength({ max: 30 })
