@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { auth } from "../middleware/auth.js";
 
 import {
   createUser,
@@ -11,9 +12,9 @@ import {
 const userRouter = Router();
 
 userRouter.post("/", createUser);
-userRouter.get("/", getUsers);
-userRouter.get("/:userId", getUser);
-userRouter.put("/:userId", updateUser);
-userRouter.delete("/:userId", deleteUser);
+userRouter.get("/", auth, getUsers);
+userRouter.get("/:userId", auth, getUser);
+userRouter.put("/:userId", auth, updateUser);
+userRouter.delete("/:userId", auth, deleteUser);
 
 export default userRouter;
