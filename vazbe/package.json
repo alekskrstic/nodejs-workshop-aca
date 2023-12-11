@@ -1,0 +1,19 @@
+{
+  "name": "vezbe",
+  "version": "1.0.0",
+  "description": "vezbe",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "aca",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "jasmine-node": "^3.0.0"
+  }
+}
