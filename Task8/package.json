@@ -1,0 +1,16 @@
+{
+  "name": "task8",
+  "version": "1.0.0",
+  "description": "task 8",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aca",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.2",
+    "yargs": "^17.7.2"
+  }
+}
