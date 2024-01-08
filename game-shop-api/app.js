@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 import { mongoConnect } from "./util/database.js";
 import categoryRouter from "./routers/category.js";
@@ -8,6 +9,8 @@ import productRouter from "./routers/product.js";
 import userRouter from "./routers/user.js";
 import purchaseRouter from "./routers/purchase.js";
 import authRouter from "./routers/auth.js";
+
+dotenv.config({ path: "./config.env" });
 
 const app = express();
 
@@ -35,10 +38,8 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-await mongoose.connect(
-  "mongodb+srv://alexandarkrstic91:c2yih4vI2W8Hhply@cluster0.ctakysa.mongodb.net/gamestore"
-);
+await mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING);
 
 mongoConnect(() => {
-  app.listen(3000);
+  app.listen(process.env.PORT || 3000);
 });

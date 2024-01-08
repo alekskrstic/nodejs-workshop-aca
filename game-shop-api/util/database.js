@@ -5,7 +5,7 @@ let db;
 export const mongoConnect = async (callback) => {
   try {
     const client = await MongoClient.connect(
-      "mongodb+srv://alexandarkrstic91:c2yih4vI2W8Hhply@cluster0.ctakysa.mongodb.net/gamestore"
+      process.env.MONGO_DB_CONNECTION_STRING
     );
 
     db = client.db();

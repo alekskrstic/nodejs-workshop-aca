@@ -3,8 +3,6 @@ import validator from "validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import { JWT_SECRET } from "../util/constants.js";
-
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -79,7 +77,7 @@ userSchema.methods.toJSON = function () {
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, JWT_SECRET);
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
 
   user.tokens = user.tokens.concat({ token });
   await user.save();
