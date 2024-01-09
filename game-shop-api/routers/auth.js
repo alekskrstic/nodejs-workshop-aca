@@ -1,10 +1,14 @@
 import { Router } from "express";
 
-import { logIn, logOut } from "../controllers/auth.js";
+import { container } from "../dependencyInjectionConfig.js";
 
-const authRouter = Router();
+const getAuthRouter = () => {
+  const authController = container.resolve("authController");
+  const authRouter = Router();
 
-authRouter.post("/login", logIn);
-authRouter.post("/logout", logOut);
+  authRouter.post("/login", authController.logIn);
+  authRouter.post("/logout", authController.logOut);
 
-export default authRouter;
+  return authRouter;
+};
+export default getAuthRouter;

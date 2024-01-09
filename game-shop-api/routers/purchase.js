@@ -1,16 +1,16 @@
-import {
-  createPurchase,
-  getPurchase,
-  getPurchases,
-} from "../controllers/purchase.js";
-import { auth } from "../middleware/auth.js";
-
 import { Router } from "express";
+import { auth } from "../middleware/auth.js";
+import { container } from "../dependencyInjectionConfig.js";
 
-const purchaseRouter = Router();
+const getPurchaseRouter = () => {
+  const purchaseController = container.resolve("purchaseController");
 
-purchaseRouter.post("/", auth, createPurchase);
-purchaseRouter.get("/", auth, getPurchases);
-purchaseRouter.get("/:purchaseId", auth, getPurchase);
+  const purchaseRouter = Router();
 
-export default purchaseRouter;
+  purchaseRouter.post("/", auth, purchaseController.createPurchase);
+  purchaseRouter.get("/", auth, purchaseController.getPurchases);
+  purchaseRouter.get("/:purchaseId", auth, purchaseController.getPurchase);
+
+  return purchaseRouter;
+};
+export default getPurchaseRouter;

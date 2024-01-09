@@ -42,4 +42,12 @@ export default class UserService {
       throw err;
     }
   };
+
+  getByCredentials = async (userReq) => {
+    try {
+      return await this.userRepository.getByCredentials(userReq);
+    } catch (err) {
+      throw err;
+    }
+  };
 }

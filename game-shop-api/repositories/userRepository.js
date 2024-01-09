@@ -117,4 +117,26 @@ export default class UserRepository {
       throw err;
     }
   };
+
+  getByCredentials = async (userReq) => {
+    try {
+      const user = await User.findByCredentials(
+        userReq.email,
+        userReq.password
+      );
+
+      if (!user) {
+        return undefined;
+      }
+
+      const token = await user.generateAuthToken();
+
+      return {
+        user: user,
+        token: token,
+      };
+    } catch (err) {
+      throw err;
+    }
+  };
 }
