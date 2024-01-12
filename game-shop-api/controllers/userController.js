@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 export default class UserController {
   constructor({ userService }) {
     this.userService = userService;
@@ -30,6 +31,10 @@ export default class UserController {
     const { userName, email, password, status, roles } = req.body;
 
     try {
+      if (!ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: "Invalid userId!" });
+      }
+
       const { user } = await this.userService.updateUser({
         userId,
         userName,
@@ -52,6 +57,10 @@ export default class UserController {
     const userId = req.params.userId;
 
     try {
+      if (!ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: "Invalid userId!" });
+      }
+
       const { user } = await this.userService.deleteUser(userId);
 
       res.status(200).json({
@@ -67,6 +76,10 @@ export default class UserController {
     const userId = req.params.userId;
 
     try {
+      if (!ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: "Invalid userId!" });
+      }
+
       const { user } = await this.userService.getUser(userId);
 
       res.status(200).json({

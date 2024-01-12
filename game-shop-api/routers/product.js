@@ -17,6 +17,7 @@ const getProductRouter = () => {
         .isLength({ min: 5 })
         .withMessage("Name must be at least 5 chars long."),
       body("description")
+        .notEmpty()
         .trim()
         .isLength({ max: 30 })
         .withMessage("Description must be less then 30 chars long."),
@@ -24,8 +25,8 @@ const getProductRouter = () => {
     auth,
     productController.createProduct
   );
-  productRouter.get("/", auth, productController.getProducts);
-  productRouter.get("/:productId", auth, productController.getProduct);
+  productRouter.get("/", productController.getProducts);
+  productRouter.get("/:productId", productController.getProduct);
   productRouter.put(
     "/:productId",
     [
@@ -34,6 +35,7 @@ const getProductRouter = () => {
         .isLength({ min: 5 })
         .withMessage("Name must be at least 5 chars long."),
       body("description")
+        .notEmpty()
         .trim()
         .isLength({ max: 30 })
         .withMessage("Description must be less then 30 chars long."),

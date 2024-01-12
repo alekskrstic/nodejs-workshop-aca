@@ -113,6 +113,10 @@ userSchema.pre("save", async function (next) {
     user.password = await bcrypt.hash(user.password, 12);
   }
 
+  if (user.roles.length < 1) {
+    user.roles.push("USER");
+  }
+
   next();
 });
 

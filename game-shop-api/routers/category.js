@@ -11,10 +11,12 @@ const getCategoryRouter = () => {
     "/",
     [
       body("name")
+        .notEmpty()
         .trim()
         .isLength({ min: 3 })
         .withMessage("Name must be at least 3 chars long."),
       body("description")
+        .notEmpty()
         .trim()
         .isLength({ max: 30 })
         .withMessage("Description must be less then 30 chars long."),
@@ -22,16 +24,18 @@ const getCategoryRouter = () => {
     auth,
     categoryController.createCategory
   );
-  categoryRouter.get("/", auth, categoryController.getCategories);
-  categoryRouter.get("/:categoryId", auth, categoryController.getCategory);
+  categoryRouter.get("/", categoryController.getCategories);
+  categoryRouter.get("/:categoryId", categoryController.getCategory);
   categoryRouter.put(
     "/:categoryId",
     [
       body("name")
+        .notEmpty()
         .trim()
         .isLength({ min: 3 })
         .withMessage("Name must be at least 3 chars long."),
       body("description")
+        .notEmpty()
         .trim()
         .isLength({ max: 30 })
         .withMessage("Description must be less then 30 chars long."),
