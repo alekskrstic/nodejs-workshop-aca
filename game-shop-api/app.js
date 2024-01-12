@@ -37,7 +37,9 @@ app.use("/auth", getAuthRouter());
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   const message = error.message;
-  res.status(status).json({ message: message });
+  const type = error.type || "";
+
+  res.status(status).json({ code: status, type: type, message: message });
 });
 
 await mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING);
